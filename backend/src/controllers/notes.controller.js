@@ -71,10 +71,11 @@ const getAllNotes = asyncHandler(async (req, res) => {
   const skip = (page - 1) * limit;
 
   const allNotes = await Notes.find().skip(skip).limit(limit);
+  const TotalCount = await Notes.countDocuments()
 
   return res
     .status(200)
-    .json(new ApiResponse(200, allNotes, "All notes fetched successfully"));
+    .json(new ApiResponse(200, {allNotes,TotalCount}, "All notes fetched successfully"));
 });
 
 const getNote = asyncHandler(async (req, res) => {
